@@ -1,6 +1,6 @@
 # Eslint-plugin
 
-[![npm version](https://badge.fury.io/js/%40v4fire%eslint-plugin.svg)](https://badge.fury.io/js/%40v4fire%2Feslint-plugin)
+[![npm version](https://badge.fury.io/js/@v4fire%2Feslint-plugin.svg)](https://badge.fury.io/js/@v4fire%2Feslint-plugin)
 
 Plugin for eslint with rules for V4 projects. Use this project as a dependence within another V4 project.
 
