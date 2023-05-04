@@ -20,6 +20,13 @@ const newlineAfterDescription = iterateJsdoc(({
 		lastDescriptionLine
 	} = utils.getDescription();
 
+	if (
+		description.length === 0 || jsdoc.tags.length === 0 ||
+		(description.length === 1 && jsdoc.tags.length === 1)
+	) {
+		return;
+	}
+
 	const
 		descriptionEndsWithANewline = (/\n\r?$/u).test(description),
 		isDescriptionMultiline = checkDescriptionMultiline(description, descriptionEndsWithANewline),
@@ -27,7 +34,7 @@ const newlineAfterDescription = iterateJsdoc(({
 		sourceLines = sourceCode.getText(jsdocNode).split('\n');
 
 	if (isMultipleTags || isDescriptionMultiline) {
-		if (jsdoc.tags > 0 && !descriptionEndsWithANewline) {
+		if (jsdoc.tags.length > 0 && !descriptionEndsWithANewline) {
 			report('There must be a newline after the description of the JSDoc block.', (fixer) => {
 				// Add the new line
 				const injectedLine = `${indent} *${sourceLines[lastDescriptionLine].endsWith('\r') ? '\r' : ''}`;
