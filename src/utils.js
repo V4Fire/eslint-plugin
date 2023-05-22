@@ -1,3 +1,11 @@
+/*!
+ * V4Fire Eslint-plugin
+ * https://github.com/V4Fire/Eslint-plugin
+ *
+ * Released under the MIT license
+ * https://github.com/V4Fire/Eslint-plugin/blob/master/LICENSE
+ */
+
 /**
  * @typedef {import('eslint').ASTNode} ASTNode
  * @typedef {import('eslint').Token} Token

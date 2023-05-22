@@ -1,3 +1,11 @@
+/*!
+ * V4Fire Eslint-plugin
+ * https://github.com/V4Fire/Eslint-plugin
+ *
+ * Released under the MIT license
+ * https://github.com/V4Fire/Eslint-plugin/blob/master/LICENSE
+ */
+
 const {AST_NODE_TYPES} = require('@typescript-eslint/utils');
 const tsutils = require('tsutils');
 const ts = require('typescript');
