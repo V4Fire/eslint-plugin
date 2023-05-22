@@ -6,15 +6,12 @@
  * https://github.com/V4Fire/Eslint-plugin/blob/master/LICENSE
  */
 
-const {AST_NODE_TYPES} = require('@typescript-eslint/utils');
-const tsutils = require('tsutils');
-const ts = require('typescript');
+const
+	{AST_NODE_TYPES} = require('@typescript-eslint/utils'),
+	tsutils = require('tsutils'),
+	ts = require('typescript');
 
 const util = require('@typescript-eslint/eslint-plugin/dist/util');
-
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
 
 const nativelyNotBoundMembers = new Set([
 	'Promise.all',

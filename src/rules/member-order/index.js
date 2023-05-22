@@ -6,10 +6,6 @@
  * https://github.com/V4Fire/Eslint-plugin/blob/master/LICENSE
  */
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
-
 module.exports = {
 	meta: {
 		type: 'suggestion',

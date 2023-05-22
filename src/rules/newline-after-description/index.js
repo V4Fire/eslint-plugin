@@ -8,10 +8,6 @@
 
 const {default: iterateJsdoc} = require('eslint-plugin-jsdoc/dist/iterateJsdoc');
 
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
-
 /**
  * Rule for check newline after description in jsdoc
  */
