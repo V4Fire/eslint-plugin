@@ -24,6 +24,7 @@
     "Eslint plugin"
   ],
   "devDependencies": {
+    "@es-joy/jsdoccomment": "0.39.4",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "eslint": "8.38.0",
@@ -33,6 +34,7 @@
     "typescript": "4.4.4"
   },
   "peerDependencies": {
+    "@es-joy/jsdoccomment": "^0.39",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8",
