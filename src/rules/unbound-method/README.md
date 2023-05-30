@@ -8,7 +8,7 @@ Otherwise, passing class methods around as values can remove type safety by fail
 
 This rule reports when a class method is referenced in an unbound manner.
 
-This rule forked from base rule of eslint with the same name but with support of `ignore` option.
+This rule forked from the base rule of eslint with the same name but with support of `ignore` option.
 
 ## Examples
 

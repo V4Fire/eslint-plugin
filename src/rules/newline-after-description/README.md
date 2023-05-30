@@ -4,7 +4,7 @@ Enforces a consistent padding of the block description.
 
 This rule formats jsdoc by separating the description block from other tags with a blank line.
 
-A blank line is only inserted if there are more than one tags or the description block takes more than one line.
+A blank line is only inserted if there are more than one tag or the description block takes more than one line.
 
 ## Examples
 
@@ -32,6 +32,18 @@ function (a) {
 }
 ```
 
+```ts
+/**
+ * Some description about function
+ *
+ * @param a
+ */
+function (a) {
+
+}
+```
+
+
 ### ✅ Correct
 
 ```ts
@@ -57,3 +69,12 @@ function (a) {
 
 }
 ```
+
+```ts
+/**
+ * Some description about function
+ * @param a
+ */
+function (a) {
+
+}

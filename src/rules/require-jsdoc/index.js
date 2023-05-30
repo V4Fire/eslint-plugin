@@ -58,28 +58,10 @@ const OPTIONS_SCHEMA = {
 		},
 		ignore: {
 			items: {
-				anyOf: [
-					{
-						type: 'string',
-					},
-					{
-						additionalProperties: false,
-						properties: {
-							context: {
-								type: 'string',
-							},
-							inlineCommentBlock: {
-								type: 'boolean',
-							},
-							minLineCount: {
-								type: 'integer',
-							},
-						},
-						type: 'object',
-					},
-				],
+				type: 'string',
 			},
 			type: 'array',
+			default: []
 		},
 		contexts: {
 			items: {
@@ -400,16 +382,6 @@ module.exports = {
 				}
 			}
 
-			const isIgnored = (node) => ignore.some((query) => {
-				const ignored = esquery.matches(node, esquery.parse(query));
-
-				return ignored;
-			})
-
-			if (isIgnored(node)) {
-				return;
-			}
-
 			const jsDocNode = getJSDocComment(sourceCode, node, settings);
 
 			if (jsDocNode) {
@@ -503,6 +475,23 @@ module.exports = {
 			};
 
 			const report = () => {
+				const isIgnored = (node) => ignore.some((query) => {
+					let nodeForCheck = node;
+
+					if (node.parent && ['MethodDefinition', 'ExportNamedDeclaration'].includes(node.parent.type)) {
+						nodeForCheck = node.parent;
+					}
+
+					const
+						ignored = esquery.match(context.getSourceCode().ast, esquery.parse(query));
+
+					return ignored.includes(nodeForCheck);
+				})
+
+				if (ignore.length && isIgnored(node)) {
+					return;
+				}
+
 				const {
 					start,
 				} = /** @type {import('eslint').AST.SourceLocation} */ (node.loc);
