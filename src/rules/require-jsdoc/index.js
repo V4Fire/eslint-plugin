@@ -1,15 +1,15 @@
 const {
 	getDecorator,
 	getJSDocComment,
-	getReducedASTNode,
-	commentHandler
+	getReducedASTNode
 } = require('@es-joy/jsdoccomment');
+const esquery = require('esquery');
 
-const { default: exportParser} = require('eslint-plugin-jsdoc/dist/exportParser');
+const exportParser = require('eslint-plugin-jsdoc/dist/exportParser');
 const {
 	getSettings
 } = require('eslint-plugin-jsdoc/dist/iterateJsdoc');
-const {default: jsdocUtils} = require('eslint-plugin-jsdoc/dist/jsdocUtils');
+const jsdocUtils = require('eslint-plugin-jsdoc/dist/jsdocUtils');
 
 /**
  * @typedef {{
@@ -55,6 +55,31 @@ const OPTIONS_SCHEMA = {
 				},
 			],
 			default: true,
+		},
+		ignore: {
+			items: {
+				anyOf: [
+					{
+						type: 'string',
+					},
+					{
+						additionalProperties: false,
+						properties: {
+							context: {
+								type: 'string',
+							},
+							inlineCommentBlock: {
+								type: 'boolean',
+							},
+							minLineCount: {
+								type: 'integer',
+							},
+						},
+						type: 'object',
+					},
+				],
+			},
+			type: 'array',
 		},
 		contexts: {
 			items: {
@@ -290,7 +315,7 @@ const getOptions = (context, settings) => {
 };
 
 /** @type {import('eslint').Rule.RuleModule} */
-export default {
+module.exports = {
 	create(context) {
 		const sourceCode = context.getSourceCode();
 		const settings = getSettings(context);
@@ -375,22 +400,19 @@ export default {
 				}
 			}
 
-			const jsDocNode = getJSDocComment(sourceCode, node, settings);
-
-			if (jsDocNode) {
-				return;
-			}
-
-			const isIgnored = (jsDocNode) => ignore.some((query) => {
-				const handler = commentHandler({ mode: 'typescript' });
-
-				debugger;
-				const ignored = handler(jsDocNode, query);
+			const isIgnored = (node) => ignore.some((query) => {
+				const ignored = esquery.matches(node, esquery.parse(query));
 
 				return ignored;
 			})
 
-			if (isIgnored(jsDocNode)) {
+			if (isIgnored(node)) {
+				return;
+			}
+
+			const jsDocNode = getJSDocComment(sourceCode, node, settings);
+
+			if (jsDocNode) {
 				return;
 			}
 
