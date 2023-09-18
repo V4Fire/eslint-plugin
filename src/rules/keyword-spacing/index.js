@@ -229,7 +229,7 @@ module.exports = {
 					overrides = (options && options.overrides) || {};
 
 				const defaultValue = {
-					before: (before && options.typeAssertionSpace && !hasTypeAssertion) ? expectSpaceBefore : unexpectSpaceBefore,
+					before: (before && !options.typeAssertionSpace && !hasTypeAssertion) ? expectSpaceBefore : unexpectSpaceBefore,
 					after: after ? expectSpaceAfter : unexpectSpaceAfter
 				}
 
