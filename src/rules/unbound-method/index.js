@@ -60,6 +60,7 @@ const nativelyBoundMembers = SUPPORTED_GLOBALS.map((namespace) => {
 	}
 
 	const object = globalThis[namespace];
+
 	return Object.getOwnPropertyNames(object)
 		.filter(
 			(name) =>

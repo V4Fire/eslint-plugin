@@ -11,9 +11,9 @@
  * @typedef {import('eslint').Token} Token
  */
 
-const {ESLintUtils} = require('@typescript-eslint/utils');
+const { ESLintUtils } = require('@typescript-eslint/utils');
 
-module.exports = {
+const utils = {
 	/**
 	 * Determines whether two adjacent tokens are on the same line
 	 *
@@ -60,5 +60,99 @@ module.exports = {
 	 */
 	createTSRule: ESLintUtils.RuleCreator(
 		(_name) => 'https://github.com/v4fire/linters'
-	)
+	),
+
+	/**
+	 * Creates the negate function of the given function.
+	 *
+	 * @param {Function} f - the function to negate.
+	 * @returns {Function} negated function.
+	 */
+	negate(f) {
+		return token => !f(token);
+	},
+
+	/**
+	 * Checks if the given token is an opening parenthesis token or not.
+	 * @param {Token} token - the token to check.
+	 * @returns {boolean} `true` if the token is an opening parenthesis token.
+	 */
+	isOpeningParenToken(token) {
+			return token.value === "(" && token.type === "Punctuator";
+	},
+
+	/**
+	 * Checks if the given token is a keyword token or not.
+	 * @param {Token} token - the token to check.
+	 * @returns {boolean} `true` if the token is a keyword token.
+	 */
+	isKeywordToken(token) {
+		return token.type === "Keyword";
+	},
+
+	keywords: [
+		"abstract",
+		"boolean",
+		"break",
+		"byte",
+		"case",
+		"catch",
+		"char",
+		"class",
+		"const",
+		"continue",
+		"debugger",
+		"default",
+		"delete",
+		"do",
+		"double",
+		"else",
+		"enum",
+		"export",
+		"extends",
+		"false",
+		"final",
+		"finally",
+		"float",
+		"for",
+		"function",
+		"goto",
+		"if",
+		"implements",
+		"import",
+		"in",
+		"instanceof",
+		"int",
+		"interface",
+		"long",
+		"native",
+		"new",
+		"null",
+		"package",
+		"private",
+		"protected",
+		"public",
+		"return",
+		"short",
+		"static",
+		"super",
+		"switch",
+		"synchronized",
+		"this",
+		"throw",
+		"throws",
+		"transient",
+		"true",
+		"try",
+		"typeof",
+		"var",
+		"void",
+		"volatile",
+		"while",
+		"with"
+	]
 };
+
+utils.isNotOpeningParenToken = utils.negate(utils.isOpeningParenToken);
+
+module.exports = utils;

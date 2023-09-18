@@ -11,6 +11,8 @@ A blank line is only inserted if there are more than one tag or the description 
 ### ❌ Incorrect
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  * @param a
@@ -22,6 +24,8 @@ function (a, b) {
 ```
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  * and more and more
@@ -33,6 +37,8 @@ function (a) {
 ```
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  *
@@ -47,6 +53,8 @@ function (a) {
 ### ✅ Correct
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  *
@@ -59,6 +67,8 @@ function (a, b) {
 ```
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  * and more and more
@@ -71,6 +81,8 @@ function (a) {
 ```
 
 ```ts
+/* eslint @v4fire/newline-after-description: ["error"]*/
+
 /**
  * Some description about function
  * @param a

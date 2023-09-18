@@ -21,43 +21,34 @@ const {
 module.exports = {
 	meta: {
 		type: 'layout',
-
 		docs: {
 			description: 'enforce consistent spacing inside braces',
 			category: 'Stylistic Issues'
 		},
-
 		fixable: 'whitespace',
-
 		schema: [
 			{
 				enum: ['always', 'never']
 			},
-
 			{
 				type: 'object',
 				properties: {
 					multiline: {
 						type: 'boolean'
 					},
-
 					arraysInObjects: {
 						type: 'boolean'
 					},
-
 					objectsInObjects: {
 						type: 'boolean'
 					},
-
 					import: {
 						type: 'boolean'
 					},
-
 					export: {
 						type: 'boolean'
 					}
 				},
-
 				additionalProperties: false
 			}
 		],
@@ -119,10 +110,6 @@ module.exports = {
 			import: isSpaced('import'),
 			export: isSpaced('export')
 		};
-
-		//--------------------------------------------------------------------------
-		// Helpers
-		//--------------------------------------------------------------------------
 
 		/**
 		 * Reports that there shouldn't be a space after the first token
@@ -508,10 +495,6 @@ module.exports = {
 
 			validateBraceSpacing(node, first, second, penultimate, last);
 		}
-
-		//--------------------------------------------------------------------------
-		// Public
-		//--------------------------------------------------------------------------
 
 		return {
 			// Var {x} = y;

@@ -7,9 +7,12 @@
  */
 
 module.exports.rules = {
-	'newline-after-description': require('./src/rules/newline-after-description'),
 	'enchanted-curly': require('./src/rules/enchanted-curly'),
-	'unbound-method': require('./src/rules/unbound-method'),
+	'format-description': require('./src/rules/format-description'),
+	'format-param-description': require('./src/rules/format-param-description'),
+	'keyword-spacing': require('./src/rules/keyword-spacing'),
+	'member-order': require('./src/rules/member-order'),
+	'newline-after-description': require('./src/rules/newline-after-description'),
 	'require-jsdoc': require('./src/rules/require-jsdoc'),
-	'member-order': require('./src/rules/member-order')
+	'unbound-method': require('./src/rules/unbound-method')
 };

@@ -3,13 +3,13 @@ const {
 	getJSDocComment,
 	getReducedASTNode
 } = require('@es-joy/jsdoccomment');
-const esquery = require('esquery');
 
-const exportParser = require('eslint-plugin-jsdoc/dist/exportParser');
-const {
-	getSettings
-} = require('eslint-plugin-jsdoc/dist/iterateJsdoc');
-const jsdocUtils = require('eslint-plugin-jsdoc/dist/jsdocUtils');
+const
+	{getSettings} = require('eslint-plugin-jsdoc/dist/iterateJsdoc'),
+	esquery = require('esquery'),
+	exportParser = require('eslint-plugin-jsdoc/dist/exportParser'),
+	jsdocUtils = require('eslint-plugin-jsdoc/dist/jsdocUtils');
+
 
 /**
  * @typedef {{
@@ -299,8 +299,10 @@ const getOptions = (context, settings) => {
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
 	create(context) {
-		const sourceCode = context.getSourceCode();
-		const settings = getSettings(context);
+		const
+			sourceCode = context.getSourceCode(),
+			settings = getSettings(context);
+
 		if (!settings) {
 			return {};
 		}
@@ -375,6 +377,7 @@ module.exports = {
 					const {
 						context: ctx,
 					} = ctxt;
+
 					return ctx === (info.selector || node.type);
 				})) || {};
 				if (underMinLine(contextMinLineCount)) {
@@ -417,6 +420,7 @@ module.exports = {
 				exemptEmptyConstructors && jsdocUtils.isConstructor(node)
 			) {
 				const functionParameterNames = jsdocUtils.getFunctionParameterNames(node);
+
 				if (!functionParameterNames.length && !jsdocUtils.hasReturnValue(node)) {
 					return;
 				}
@@ -429,6 +433,7 @@ module.exports = {
 				let baseNode = getReducedASTNode(node, sourceCode);
 
 				const decorator = getDecorator(baseNode);
+
 				if (decorator) {
 					baseNode = decorator;
 				}
@@ -460,8 +465,10 @@ module.exports = {
 					const {
 						context: ctxt,
 					} = contxt;
+
 					return ctxt === node.type;
 				})) || {};
+
 				const insertion = (inlineCommentBlock ?
 					`/** ${fixerMessage}` :
 					`/**\n${indent}*${fixerMessage}\n${indent}`) +
@@ -495,6 +502,7 @@ module.exports = {
 				const {
 					start,
 				} = /** @type {import('eslint').AST.SourceLocation} */ (node.loc);
+
 				const loc = {
 					end: {
 						column: 0,
@@ -502,6 +510,7 @@ module.exports = {
 					},
 					start,
 				};
+
 				context.report({
 					fix: enableFixer ? fix : null,
 					loc,
@@ -518,11 +527,13 @@ module.exports = {
 					initModuleExports: Boolean(publicOnly?.cjs ?? true),
 					initWindow: Boolean(publicOnly?.window ?? false),
 				};
+
 				const exported = exportParser.isUncommentedExport(node, sourceCode, opt, settings);
 
 				if (exported) {
 					report();
 				}
+
 			} else {
 				report();
 			}
