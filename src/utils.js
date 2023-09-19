@@ -11,7 +11,7 @@
  * @typedef {import('eslint').Token} Token
  */
 
-const {ESLintUtils} = require('@typescript-eslint/utils');
+const {ESLintUtils, ASTUtils} = require('@typescript-eslint/utils');
 const {AST_NODE_TYPES} = require('@typescript-eslint/types');
 
 const ERROR_MESSAGE =
@@ -116,7 +116,7 @@ const utils = {
 		return token.type === "Keyword";
 	},
 
-	isIdentifier: isNodeOfType(AST_NODE_TYPES.Identifier),
+	isIdentifier: ASTUtils.isNodeOfType(AST_NODE_TYPES.Identifier),
 
 	keywords: [
 		"abstract",
