@@ -11,7 +11,12 @@
  * @typedef {import('eslint').Token} Token
  */
 
-const { ESLintUtils } = require('@typescript-eslint/utils');
+const {ESLintUtils} = require('@typescript-eslint/utils');
+const {AST_NODE_TYPES} = require('@typescript-eslint/types');
+
+const ERROR_MESSAGE =
+	'You have used a rule which requires parserServices to be generated. You must therefore provide a value for the "parserOptions.project" property for @typescript-eslint/parser.';
+
 
 const utils = {
 	/**
@@ -62,6 +67,27 @@ const utils = {
 		(_name) => 'https://github.com/v4fire/linters'
 	),
 
+	getParserServices(
+		context,
+		allowWithoutFullTypeInformation = false,
+	) {
+		if (
+			context.parserServices?.esTreeNodeToTSNodeMap == null ||
+			context.parserServices.tsNodeToESTreeNodeMap == null
+		) {
+			throw new Error(ERROR_MESSAGE);
+		}
+	
+		if (
+			context.parserServices.program == null &&
+			!allowWithoutFullTypeInformation
+		) {
+			throw new Error(ERROR_MESSAGE);
+		}
+	
+		return context.parserServices;
+	},
+
 	/**
 	 * Creates the negate function of the given function.
 	 *
@@ -89,6 +115,8 @@ const utils = {
 	isKeywordToken(token) {
 		return token.type === "Keyword";
 	},
+
+	isIdentifier: isNodeOfType(AST_NODE_TYPES.Identifier),
 
 	keywords: [
 		"abstract",

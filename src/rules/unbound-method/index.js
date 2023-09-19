@@ -7,11 +7,12 @@
  */
 
 const
-	{AST_NODE_TYPES} = require('@typescript-eslint/utils'),
+	{AST_NODE_TYPES} = require('@typescript-eslint/types'),
 	tsutils = require('tsutils'),
-	ts = require('typescript');
-
-const util = require('@typescript-eslint/eslint-plugin/dist/util');
+	ts = require('typescript'),
+	{createTSRule, getParserServices} = require('../../utils'),
+	{getModifiers} = require('@typescript-eslint/typescript-estree'),
+	{ASTUtils} = require('@typescript-eslint/utils');
 
 const nativelyNotBoundMembers = new Set([
 	'Promise.all',
@@ -116,7 +117,7 @@ const getMemberFullName = (node) =>
 const BASE_MESSAGE =
 	'Avoid referencing unbound methods which may cause unintentional scoping of `this`.';
 
-module.exports = util.createRule({
+module.exports = createTSRule({
 	name: 'unbound-method',
 
 	meta: {
@@ -162,7 +163,7 @@ module.exports = util.createRule({
 	],
 
 	create(context, [{ignoreStatic, ignore}]) {
-		const parserServices = util.getParserServices(context);
+		const parserServices = getParserServices(context);
 		const checker = parserServices.program.getTypeChecker();
 		const currentSourceFile = parserServices.program.getSourceFile(
 			context.getFilename()
@@ -233,7 +234,7 @@ module.exports = util.createRule({
 						) {
 							if (
 								notImported &&
-								util.isIdentifier(initNode) &&
+								ASTUtils.isIdentifier(initNode) &&
 								(
 									nativelyBoundMembers.includes(`${initNode.name}.${property.key.name}`) ||
 									ignore.includes(initNode.name)
@@ -296,7 +297,7 @@ function checkMethod(
 					!(
 						ignoreStatic &&
 						tsutils.hasModifier(
-							util.getModifiers(valueDeclaration),
+							getModifiers(valueDeclaration),
 							ts.SyntaxKind.StaticKeyword
 						)
 					),

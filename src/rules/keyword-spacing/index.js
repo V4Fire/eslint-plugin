@@ -314,11 +314,25 @@ module.exports = {
 		function checkSpacingBeforeFirstToken(node) {
 			const
 				firstToken = node && sourceCode.getFirstToken(node),
-				hasTypeAssertion = node.parent.type === 'TSTypeAssertion';
+				hasTypeAssertion = isNodeHasTypeAssertion(node);
 
 			if (firstToken && firstToken.type === 'Keyword') {
 				checkSpacingBefore(firstToken, null, hasTypeAssertion);
 			}
+		}
+
+		function isNodeHasTypeAssertion(node) {
+			let currentNode = node.parent;
+
+			while (currentNode) {
+				if (currentNode.type === 'TSTypeAssertion') {
+					return true;
+				}
+
+				currentNode = currentNode.parent;
+			}
+
+			return false;
 		}
 
 		/**
@@ -346,7 +360,7 @@ module.exports = {
 		function checkSpacingForFunction(node) {
 			const
 				firstToken = node && sourceCode.getFirstToken(node),
-				hasTypeAssertion = node.parent.type === 'TSTypeAssertion';
+				hasTypeAssertion = isNodeHasTypeAssertion(node);
 
 			if (firstToken &&
 				((firstToken.type === 'Keyword' && firstToken.value === 'function') ||
