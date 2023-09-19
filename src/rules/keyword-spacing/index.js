@@ -598,7 +598,11 @@ module.exports = {
 		 * @returns {void}
 		 */
 		function checkSpacingForAwaitExpression(node) {
-			checkSpacingBefore(sourceCode.getFirstToken(node));
+			const
+				firstToken = node && sourceCode.getFirstToken(node),
+				hasTypeAssertion = isNodeHasTypeAssertion(node);
+
+			checkSpacingBefore(firstToken, null, hasTypeAssertion);
 		}
 
 		return {
